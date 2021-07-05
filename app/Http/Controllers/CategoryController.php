@@ -7,18 +7,22 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function showAllUsers()
+    public function showAllCategories()
     {
         return response()->json(Category::all());
     }
 
-    public function showOneUser($id)
+    public function showOneCategory($id)
     {
         return response()->json(Category::find($id));
     }
 
     public function create(Request $request)
     {
+        $this->validate($request, [
+            'name' => 'required|string|min:5'
+        ]);
+
         $category = Category::create($request->all());
 
         return response()->json($category, 201);
@@ -26,15 +30,27 @@ class CategoryController extends Controller
 
     public function update($id, Request $request)
     {
-        $category = Category::findOrFail($id);
-        $category->update($request->all());
+        $this->validate($request, [
+            'name' => 'required|string|min:5'
+        ]);
 
-        return response()->json($category, 200);
+        try {
+            $category = Category::findOrFail($id);
+            $category->update($request->all());
+
+            return response()->json($category, 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Job not found!'], 404);
+        }
     }
 
     public function delete($id)
     {
-        Category::findOrFail($id)->delete();
-        return response('Deleted Successfully', 200);
+        try {
+            Category::findOrFail($id)->delete();
+            return response('Deleted Successfully', 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Category not found!'], 404);
+        }
     }
 }

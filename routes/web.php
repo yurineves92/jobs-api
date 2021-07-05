@@ -27,21 +27,23 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     // get one user by id
     $router->get('users/{id}', 'UserController@singleUser');
-    
+
     // get all users
     $router->get('users', 'UserController@allUsers');
 
-    // Categories
-    $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
-    $router->get('categories/{id}', ['uses' => 'CategoryController@showOneCategory']);
-    $router->post('categories', ['uses' => 'CategoryController@create']);
-    $router->delete('categories/{id}', ['uses' => 'CategoryController@delete']);
-    $router->put('categories/{id}', ['uses' => 'CategoryController@update']);
+    $router->group(['middleware' => 'auth'], function () use ($router) {
+        // Categories
+        $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
+        $router->get('categories/{id}', ['uses' => 'CategoryController@showOneCategory']);
+        $router->post('categories', ['uses' => 'CategoryController@create']);
+        $router->delete('categories/{id}', ['uses' => 'CategoryController@delete']);
+        $router->put('categories/{id}', ['uses' => 'CategoryController@update']);
 
-    // Jobs
-    $router->get('jobs', ['uses' => 'JobController@showAllJobs']);
-    $router->get('jobs/{id}', ['uses' => 'JobController@showOneJobs']);
-    $router->post('jobs', ['uses' => 'JobController@create']);
-    $router->delete('jobs/{id}', ['uses' => 'JobController@delete']);
-    $router->put('jobs/{id}', ['uses' => 'JobController@update']);
+        // Jobs
+        $router->get('jobs', ['uses' => 'JobController@showAllJobs']);
+        $router->get('jobs/{id}', ['uses' => 'JobController@showOneJobs']);
+        $router->post('jobs', ['uses' => 'JobController@create']);
+        $router->delete('jobs/{id}', ['uses' => 'JobController@delete']);
+        $router->put('jobs/{id}', ['uses' => 'JobController@update']);
+    });
 });
