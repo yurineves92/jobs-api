@@ -13,6 +13,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function createApplication()
     {
+        parent::setUp();
         return require __DIR__.'/../bootstrap/app.php';
     }
 }
