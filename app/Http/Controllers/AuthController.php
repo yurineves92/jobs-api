@@ -57,4 +57,10 @@ class AuthController extends Controller
             return response()->json(['message' => 'User Registration Failed!'], 409);
         }
     }
+
+    public function logout(Request $request)
+    {
+    	Auth::logout();
+        return response()->json(['data' => 'User logged out.'], 200);
+    }
 }

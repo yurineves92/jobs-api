@@ -32,6 +32,9 @@ $router->group(['prefix' => 'api'], function () use ($router) {
     $router->get('users', 'UserController@allUsers');
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
+        // Auth
+        $router->post('logout', ['uses' => 'AuthController@logout']);
+
         // Categories
         $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
         $router->get('categories/{id}', ['uses' => 'CategoryController@showOneCategory']);
