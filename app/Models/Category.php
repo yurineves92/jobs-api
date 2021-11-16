@@ -26,7 +26,8 @@ class Category extends Model
     /**
      * Relations
      */
-    public function jobs(){
+    public function jobs()
+    {
         return $this->hasMany('App\Models\Job');
     }
 }

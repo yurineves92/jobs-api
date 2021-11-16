@@ -19,7 +19,7 @@ class Job extends Model
     protected $dates = [
         'post_date'
     ];
-    
+
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -30,15 +30,18 @@ class Job extends Model
     /**
      * Relations
      */
-    public function users(){
+    public function users()
+    {
         return $this->belongsTo('App\User');
     }
 
-    public function categories(){
+    public function categories()
+    {
         return $this->belongsTo('App\Models\Category');
     }
 
-    public function jobsApplied(){
+    public function jobsApplied()
+    {
         return $this->hasMany('App\Models\JobUserApplied');
     }
 }

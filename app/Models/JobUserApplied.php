@@ -23,14 +23,21 @@ class JobUserApplied extends Model
      */
     protected $hidden = [];
 
+    public function getJobNameAttribute()
+    {
+        return $this->job->title;
+    }
+
     /**
      * Relations
      */
-    public function users(){
+    public function users()
+    {
         return $this->belongsTo('App\User');
     }
 
-    public function jobs(){
+    public function jobs()
+    {
         return $this->belongsTo('App\Models\Jobs');
     }
 }

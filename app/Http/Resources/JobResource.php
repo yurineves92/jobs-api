@@ -2,6 +2,8 @@
 
 namespace App\Http\Resources;
 
+use App\Models\Category;
+use App\User;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class JobResource extends JsonResource
@@ -15,8 +17,8 @@ class JobResource extends JsonResource
             'description' => $this->description,
             'salary' => $this->salary,
             'location' => $this->location,
-            'category' => $this->category_id,
-            'user' => $this->user_id,
+            'category' => Category::where('id', $this->category_id)->get(['id', 'name']),
+            'user' => User::where('id', $this->user_id)->get(['id', 'name', 'email']),
             'post_date' => $this->post_date->format('d/m/Y H:i:s'),
             'created_at' => $this->created_at->format('d/m/Y H:i:s')
         ];
