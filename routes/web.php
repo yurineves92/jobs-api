@@ -48,5 +48,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
         $router->post('jobs', ['uses' => 'JobController@create']);
         $router->delete('jobs/{id}', ['uses' => 'JobController@delete']);
         $router->put('jobs/{id}', ['uses' => 'JobController@update']);
+
+        // Users Applied Jobs
+        $router->post('userAppliedJob', ['uses' => 'UserController@appliedJob']);
+        $router->post('replyingUser', ['users' => 'UserController@replyingUser']);
+
+        // Companies
+        $router->get('listApplied', ['uses' => 'CompanyController@listApplied']);
+        $router->post('createJob', ['uses' => 'CompanyController@createJob']);
     });
 });

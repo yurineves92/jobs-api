@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\JobResource;
 use App\Models\Job;
 use Illuminate\Http\Request;
 
@@ -9,12 +10,12 @@ class JobController extends Controller
 {
     public function showAllJobs()
     {
-        return response()->json(Job::all());
+        return response()->json(JobResource::collection(Job::all()));
     }
 
     public function showOneJobs($id)
     {
-        return response()->json(Job::find($id));
+        return response()->json(JobResource::collection(Job::find($id)));
     }
 
     public function create(Request $request)
@@ -31,7 +32,7 @@ class JobController extends Controller
 
         $job = Job::create($request->all());
 
-        return response()->json($job, 201);
+        return response()->json(new JobResource($job), 201);
     }
 
     public function update($id, Request $request)
@@ -50,7 +51,7 @@ class JobController extends Controller
             $job = Job::findOrFail($id);
             $job->update($request->all());
 
-            return response()->json($job, 200);
+            return response()->json(new JobResource($job), 200);
         } catch (\Exception $e) {
             return response()->json(['message' => 'Job not found!'], 404);
         }

@@ -19,7 +19,7 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      * @var array
      */
     protected $fillable = [
-        'name', 'email',
+        'name', 'email', 'type_user'
     ];
 
     /**
@@ -36,6 +36,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
      */
     public function jobs(){
         return $this->hasMany('App\Models\Job');
+    }
+
+    public function jobsApplied(){
+        return $this->hasMany('App\Models\JobUserApplied');
     }
 
     /**

@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Http\Resources\UserResource;
+use App\Models\JobUserApplied;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
@@ -25,7 +27,6 @@ class UserController extends Controller
      */
     public function profile()
     {
-        
         return response()->json(['user' => new UserResource(Auth::user())], 200);
     }
 
@@ -54,5 +55,38 @@ class UserController extends Controller
 
             return response()->json(['message' => 'user not found!'], 404);
         }
+    }
+
+    /**
+     * User Apllied one Job
+     * 
+     * @return Response
+     */
+    public function appliedJob(Request $request)
+    {
+        $this->validate($request, [
+            'job_id' => 'required',
+            'user_id' => 'required'
+        ]);
+
+        $applied = JobUserApplied::where('user_id', $request['user_id'])->get();
+
+        if (count($applied) > 0) {
+            return response()->json(['message' => 'You have already applied for this vacancy!'], 200);
+        }
+
+        $job = JobUserApplied::create($request->all());
+
+        return response()->json($job, 201);
+    }
+
+    /**
+     * Replying User
+     * 
+     * @return Response
+     */
+    public function replyingUser(Request $request)
+    {
+
     }
 }

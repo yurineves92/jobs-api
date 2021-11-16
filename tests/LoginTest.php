@@ -1,6 +1,6 @@
 <?php
 
-class LoginTest extends TestCase 
+class LoginTest extends TestCase
 {
     public function testRequiresEmailAndLogin()
     {
@@ -14,10 +14,10 @@ class LoginTest extends TestCase
 
     public function testUserLoginsSuccessfully()
     {
-        // $user = factory(User::class)->create([
-        //     'email' => 'testlogin@user.com',
-        //     'password' => Hash::make('123456'),
-        // ]);
+        $user = factory(User::class)->create([
+            'email' => 'testlogin@user.com',
+            'password' => bcrypt('toptal123')
+        ]);
 
         $payload = ['email' => 'testlogin@user.com', 'password' => '123456'];
 

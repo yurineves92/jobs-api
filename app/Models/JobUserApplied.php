@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Job extends Model
+class JobUserApplied extends Model
 {
 
     /**
@@ -13,13 +13,9 @@ class Job extends Model
      * @var array
      */
     protected $fillable = [
-        'company', 'title', 'description', 'salary', 'location', 'post_date', 'category_id', 'user_id'
+        'resume', 'job_id', 'user_id'
     ];
 
-    protected $dates = [
-        'post_date'
-    ];
-    
     /**
      * The attributes excluded from the model's JSON form.
      *
@@ -34,11 +30,7 @@ class Job extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function categories(){
-        return $this->belongsTo('App\Models\Category');
-    }
-
-    public function jobsApplied(){
-        return $this->hasMany('App\Models\JobUserApplied');
+    public function jobs(){
+        return $this->belongsTo('App\Models\Jobs');
     }
 }
