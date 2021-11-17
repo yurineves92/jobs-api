@@ -26,6 +26,13 @@ To create the system database, with the .env file pre-configured with the databa
 - Authentication and Authorization (Users) 
 - Rest Concepts
 - Authentication using JWT
+- Company Create Job
+- User Applied Job
+- Response for Applied Job
+- Filter Jobs (Company, Title, Location)
+- Create Resource for Models
+- Update Database using Migration
+- Type Users (Personal(1), Company(2))
 
 
 ## Technologies used in the project
