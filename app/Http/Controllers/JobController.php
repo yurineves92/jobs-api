@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    public function showAllJobs()
+    public function showAllJobs(Request $request)
     {
         return response()->json(JobResource::collection(Job::all()));
     }
