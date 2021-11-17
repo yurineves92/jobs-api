@@ -42,6 +42,10 @@ class User extends Model implements AuthenticatableContract, AuthorizableContrac
         return $this->hasMany('App\Models\JobUserApplied');
     }
 
+    public function replyUserJobs(){
+        return $this->hasMany('App\Models\ReplyUserJob');
+    }
+
     /**
      * Get the identifier that will be stored in the subject claim of the JWT.
      *

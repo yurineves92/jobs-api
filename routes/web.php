@@ -51,7 +51,7 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
         // Users Applied Jobs
         $router->post('userAppliedJob', ['uses' => 'UserController@appliedJob']);
-        $router->post('replyingUser', ['users' => 'UserController@replyingUser']);
+        $router->post('replyingUser', ['uses' => 'UserController@replyingUser']);
 
         // Companies
         $router->get('listApplied', ['uses' => 'CompanyController@listApplied']);

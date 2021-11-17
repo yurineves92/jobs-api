@@ -44,4 +44,8 @@ class Job extends Model
     {
         return $this->hasMany('App\Models\JobUserApplied');
     }
+
+    public function replyUserJobs(){
+        return $this->hasMany('App\Models\ReplyUserJob');
+    }
 }

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\ReplyUserJobResource;
 use App\User;
 use App\Http\Resources\UserResource;
 use App\Models\JobUserApplied;
+use App\Models\ReplyUserJob;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
@@ -87,6 +89,14 @@ class UserController extends Controller
      */
     public function replyingUser(Request $request)
     {
+        $this->validate($request, [
+            'job_id' => 'required',
+            'user_id' => 'required',
+            'message' => 'required'
+        ]);
 
+        $reply = ReplyUserJob::create($request->all());
+
+        return response()->json(new ReplyUserJobResource($reply), 201);
     }
 }
