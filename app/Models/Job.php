@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use App\Concerns\Filterable;
 use Illuminate\Database\Eloquent\Model;
 
 class Job extends Model
 {
+    use Filterable;
 
     /**
      * The attributes that are mass assignable.
@@ -45,7 +47,8 @@ class Job extends Model
         return $this->hasMany('App\Models\JobUserApplied');
     }
 
-    public function replyUserJobs(){
+    public function replyUserJobs()
+    {
         return $this->hasMany('App\Models\ReplyUserJob');
     }
 }

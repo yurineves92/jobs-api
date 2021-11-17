@@ -2,15 +2,19 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\PaginationHelper;
+use App\Http\Filters\JobFilter;
 use App\Http\Resources\JobResource;
 use App\Models\Job;
 use Illuminate\Http\Request;
 
 class JobController extends Controller
 {
-    public function showAllJobs(Request $request)
+    public function showAllJobs(JobFilter $filter)
     {
-        return response()->json(JobResource::collection(Job::all()));
+        $jobs = Job::filter($filter)->paginate();
+        $jobsCollection = JobResource::collection($jobs);
+        return response()->json(PaginationHelper::paginate($jobsCollection->collection, 5));
     }
 
     public function showOneJobs($id)
