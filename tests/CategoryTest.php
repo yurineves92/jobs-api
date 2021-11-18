@@ -12,6 +12,9 @@ class CategoryTest extends TestCase
         $this->_token = Auth::attempt(['email' => 'admin@test.com', 'password' => '123456']);
     }
 
+    /**
+     * /api/categories [GET]
+     */
     public function testShouldReturnAllCategories()
     {
         $this->getAuthentication();
@@ -27,7 +30,10 @@ class CategoryTest extends TestCase
             ]);
     }
 
-    public function testShouldReturnCategory()
+    /**
+     * /api/categories/1 [GET]
+     */
+    public function testShouldReturnOneCategory()
     {
         $this->getAuthentication();
         $headers = ['Authorization' => 'Bearer ' . $this->_token];
@@ -40,6 +46,9 @@ class CategoryTest extends TestCase
             ]);
     }
 
+    /**
+     * /api/categories [POST]
+     */
     public function testShouldCreateCategory()
     {
         $this->getAuthentication();
@@ -54,5 +63,36 @@ class CategoryTest extends TestCase
                 'name',
                 'created_at'
             ]);
+    }
+
+    /**
+     * /api/categories/1 [PUT]
+     */
+    public function testShouldUpdateCategory()
+    {
+        $this->getAuthentication();
+
+        $params = ['name' => 'Test Category 1 Updated'];
+
+        $headers = ['Authorization' => 'Bearer ' . $this->_token];
+        $this->json('PUT', 'api/categories/1', $params, $headers)
+            ->seeStatusCode(200)
+            ->seeJsonStructure([
+                'id',
+                'name',
+                'created_at'
+            ]);
+    }
+
+    /**
+     * /api/categories/1 [DELETE]
+     */
+    public function testShouldDeleteCategory()
+    {
+        $this->getAuthentication();
+
+        $headers = ['Authorization' => 'Bearer ' . $this->_token];
+        $this->json('DELETE', 'api/categories/53', [], $headers)
+            ->seeStatusCode(200);
     }
 }
