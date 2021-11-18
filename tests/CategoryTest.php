@@ -15,8 +15,8 @@ class CategoryTest extends TestCase
     public function testShouldReturnAllCategories()
     {
         $this->getAuthentication();
-        $headers = ['Authorization' => 'Bearer '.$this->_token];
-        $this->json('get', 'api/categories', [], $headers)
+        $headers = ['Authorization' => 'Bearer ' . $this->_token];
+        $this->json('GET', 'api/categories', [], $headers)
             ->seeStatusCode(200)
             ->seeJsonStructure([
                 [
@@ -24,6 +24,35 @@ class CategoryTest extends TestCase
                     'name',
                     'created_at'
                 ]
+            ]);
+    }
+
+    public function testShouldReturnCategory()
+    {
+        $this->getAuthentication();
+        $headers = ['Authorization' => 'Bearer ' . $this->_token];
+        $this->json('GET', 'api/categories/1', [], $headers)
+            ->seeStatusCode(200)
+            ->seeJsonStructure([
+                'id',
+                'name',
+                'created_at'
+            ]);
+    }
+
+    public function testShouldCreateCategory()
+    {
+        $this->getAuthentication();
+
+        $params = ['name' => 'Test Category'];
+
+        $headers = ['Authorization' => 'Bearer ' . $this->_token];
+        $this->json('POST', 'api/categories', $params, $headers)
+            ->seeStatusCode(201)
+            ->seeJsonStructure([
+                'id',
+                'name',
+                'created_at'
             ]);
     }
 }
