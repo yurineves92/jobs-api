@@ -34,6 +34,11 @@ To create the system database, with the .env file pre-configured with the databa
 - Update Database using Migration
 - Type Users (Personal(1), Company(2))
 
+## Running tests
+
+```
+vendor/bin/phpunit --testdox
+```
 
 ## Technologies used in the project
 

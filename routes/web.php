@@ -30,13 +30,13 @@ $router->group(['prefix' => 'api'], function () use ($router) {
 
     // get all users
     $router->get('users', 'UserController@allUsers');
+    $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
 
     $router->group(['middleware' => 'auth'], function () use ($router) {
         // Auth
         $router->post('logout', ['uses' => 'AuthController@logout']);
 
         // Categories
-        $router->get('categories', ['uses' => 'CategoryController@showAllCategories']);
         $router->get('categories/{id}', ['uses' => 'CategoryController@showOneCategory']);
         $router->post('categories', ['uses' => 'CategoryController@create']);
         $router->delete('categories/{id}', ['uses' => 'CategoryController@delete']);
